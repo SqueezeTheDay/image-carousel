@@ -1,6 +1,7 @@
-import Carousel from './Carousel.jsx'
-import ReactDOM from 'react-dom'
-import React from 'react'
+import Carousel from './Carousel.jsx';
+import ReactDOM from 'react-dom';
+import React from 'react';
+
 fetch('/products/98/images').then(response => response.json().then(body => {
   var details = Object.values(body[0])
   details.shift()

@@ -1,5 +1,5 @@
-import ModalThumbnails from './ModalThumbnails.jsx'
-import React from 'react'
+import React from 'react';
+import ModalThumbnails from './ModalThumbnails.jsx';
 
 class Modal extends React.Component {
   constructor(props) {

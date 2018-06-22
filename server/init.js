@@ -42,6 +42,7 @@ handler.read(path.join(__dirname, '/products.txt'), (data) => {
       }
       return result;
     }
+    
     const imageInfo = {
       _id: id,
       urls: [{ url: `http://lululemonades-related.s3.amazonaws.com/image00${toDigits(3, id)}.jpg` },
