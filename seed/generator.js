@@ -1,14 +1,14 @@
 const fs = require('fs');
 
-const imageRecords = fs.createWriteStream('./seed/imageURLS.csv', { flags: 'a' });
-const header = 'id,url,url,url,url,url\n';
+const imageRecords = fs.createWriteStream('./imageURLS.csv', { flags: 'a' });
+const header = 'id,url1,url2,url3,url4,url5\n';
 
 
 function toDigits(digits, numbers) {
   let result = '';
   for (let i = 0; i < digits; i += 1) {
     result += '0';
-  }x
+  }
   const numbersArray = numbers.toString().split('');
   if (digits > numbersArray.length) {
     numbersArray.forEach((number) => {
