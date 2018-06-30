@@ -1,57 +1,65 @@
 const express = require('express');
-const models = require('./models');
 const cors = require('cors');
+const pgp = require('pg-promise')();
 
-const { Image, Product } = models;
 const app = express();
 app.use(cors());
 
+const db = pgp('postgres://localhost:5432/lululemon');
+
+const Product = {
+  _id: '1',
+  gender: 'Women',
+  category: 'Tops',
+  type: 'Shirts',
+  colors: 'red, blue, pink',
+  __v: 0,
+};
 
 app.use('/:id', express.static('./public'));
 
-
-//read
 app.get('/images/:id', (req, res) => {
   const { id } = req.params;
   const result = [];
-  Product.find({ _id: id }, (err, data) => {
-    if (err) throw new Error(err);
-    result.push(data[0]);
-  })
-    .then(() => {
-      Image.find({ _id: id }, (err, data) => {
-        if (err) throw new Error(err);
-        result.push(data[0]);
-      })
-        .then(() => {
-          res.end(JSON.stringify(result));
-        });
+  result.push(Product);
+
+  db.query(`SELECT * FROM image_urls WHERE id = ${id};`)
+    .then((data) => {
+      const images = {
+        urls: [
+          { url: '' },
+          { url: '' },
+          { url: '' },
+          { url: '' },
+          { url: '' }],
+      };
+
+      images.urls[0].url = data[0].url_one;
+      images.urls[1].url = data[0].url_two;
+      images.urls[2].url = data[0].url_three;
+      images.urls[3].url = data[0].url_four;
+      images.urls[4].url = data[0].url_five;
+      result.push(images);
+      res.end(JSON.stringify(result));
     });
 });
 
-// create
-app.post('images/', (req, res) => {
-  // add new product item
-  // add new images
-  Images.create(req.body, (err, data) => {
-    if (err) throw new Error(err);
-  })
-
-});
+//update
+//create
 
 
-// update
-app.put('images/:id', (req, res) => {
-  // add the id to the request
-});
-
-// delete
-app.delete('images/:id', (req, res) => {
-  // delete the element at the given ID
+//delete
+app.delete('/images/:id', (req, res) =>{
   const { id } = req.params;
-  Images.deleteOne({ _id: id });
-
+  console.log('that was a delete!')
+  db.result(`DELETE FROM image_urls WHERE id = ${id};`)
+    .then((result) => {
+      console.log(result.rowCount);
+    })
+    .catch((error) => {
+      console.log('ERROR:', error);
+    });
 });
+
 
 app.listen(3004);
-
