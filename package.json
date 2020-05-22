@@ -5,10 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/server.js",
+    "start": "node server/server.js",
     "seed-db": "node server/init.js",
     "react-dev": "webpack -d --watch",
-    "generate": "node server/generator.js"
+    "generate": "node seed/generator.js"
   },
   "author": "",
   "license": "ISC",

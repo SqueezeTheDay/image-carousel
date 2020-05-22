@@ -1,3 +1,5 @@
 node_modules/
 seed/imageURLS.csv
 imageURLS.csv
+config.js
+scratch.js

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 
 fetch('/images' + window.location.pathname).then(response => response.json().then(body => {
-  console.log(body);
   var details = Object.values(body[0])
   details.shift()
   details.pop()

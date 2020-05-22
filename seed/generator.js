@@ -1,30 +1,19 @@
 const fs = require('fs');
 
 const imageRecords = fs.createWriteStream('./imageURLS.csv', { flags: 'a' });
-const header = 'id,url1,url2,url3,url4,url5\n';
+const header = 'url1,url2,url3,url4,url5\n';
 
 
-function toDigits(digits, numbers) {
-  let result = '';
-  for (let i = 0; i < digits; i += 1) {
-    result += '0';
-  }
-  const numbersArray = numbers.toString().split('');
-  if (digits > numbersArray.length) {
-    numbersArray.forEach((number) => {
-      result = result.slice(1, result.length);
-      result += number;
-    });
-  } else if (digits === numbersArray.length) {
-    result += numbers;
-  }
-  return result;
-}
+const getRandomInt = max => Math.floor(Math.random() * Math.floor(max));
 
 function generateImageData() {
   let csv = '';
   for (let i = 1; i < 6; i++) {
-    csv += `,http://lululemonades-related.s3.amazonaws.com/image00${toDigits(3, Math.floor(Math.random(5) * 100) + 1)}.jpg`;
+    if (i === 1) {
+      csv += 'http://lululemonades-related.s3.amazonaws.com/image' + `${getRandomInt(100) + 1}.jpg`.padStart(9, '0');   
+    } else {
+      csv += ',http://lululemonades-related.s3.amazonaws.com/image' + `${getRandomInt(100) + 1}.jpg`.padStart(9, '0');
+    }
   }
   return csv;
 }
@@ -33,9 +22,9 @@ imageRecords.write(header);
 let imageData = [];
 
 for (let i = 0; i <= 10e6; i += 1) {
-  const record = i + '';
+
   const urls = generateImageData();
-  const onerecord = record + urls + '\n';
+  const onerecord = urls + '\n';
   imageData.push(onerecord);
   if (i % 500000 === 0) {
     console.log(i, ' records');
@@ -44,4 +33,4 @@ for (let i = 0; i <= 10e6; i += 1) {
   }
 }
 
-imageRecords.end()
+imageRecords.end();

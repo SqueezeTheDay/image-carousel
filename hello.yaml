@@ -1,0 +1,20 @@
+config:
+  target: 'http://localhost:3004'
+  phases:
+    - duration: 30
+      arrivalRate: 10000
+  defaults:
+    headers:
+      x-my-service-auth: '987401838271002188298567'
+scenarios:
+  - flow:
+    # - get:
+    #     url: "/images/{{$randomNumber(1, 10000000)}}/" 
+    - post:
+        url: "/images/"
+        json:
+          url_one: 'http://lululemonades-related.s3.amazonaws.com/image00047.jpg'
+          url_two: 'http://lululemonades-related.s3.amazonaws.com/image00017.jpg'
+          url_three: 'http://lululemonades-related.s3.amazonaws.com/image00017.jpg'
+          url_four: 'http://lululemonades-related.s3.amazonaws.com/image00002.jpg'
+          url_five: 'http://lululemonades-related.s3.amazonaws.com/image00046.jpg'

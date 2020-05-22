@@ -17,7 +17,13 @@
 
 ## Usage
 
-> Some usage instructions
+>  
+1. If you're starting from scratch, you'll need to generate 10 million records using the "npm run generate" script.
+2. Then load the data to the database. Go to the database directory and run:
+
+psql lululemon < schema.sql
+
+
 
 ## Requirements
 
